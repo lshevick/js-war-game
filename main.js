@@ -6,6 +6,8 @@
     // 3. Must create basic ui
 
     const $playButton = document.querySelector('.play-game');
+    const $playerCard = document.querySelector('#player-score');
+    const $robotCard = document.querySelector('#robot-score');
 
     const cardNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     const cardSuits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
@@ -77,12 +79,6 @@
     /////////////////////////////////////////////////this is where we begin 😼/////////////////////////////////////////////////////////////////////////////////
 
     const newGame = new Game();
-    // console.log(playerOne);
-    // console.log(computer);
-    // newGame.shuffle(deck);
-
-    // console.log(deck);
-    // console.log(newGame.deal(deck));
     newGame.start();
     const playerOne = newGame.players[0];
     const robot = newGame.players[1];
@@ -111,6 +107,14 @@
             // debugger;
             war();
         }
+        // check if either player is out of cards
+        if (playerOne.hand.length === 0) {
+            $playerCard.value = 'You Win!'
+            $playButton.classList.add('hidden');
+
+        } else if (robot.hand.length === 0) {
+
+        }
     }
 
 
@@ -121,10 +125,8 @@
         // add three cards from each players hands to contestArr and compare the values of the current cards.
         if (playerOne.hand.length < 5 || robot.hand.length < 5) {
             if(playerOne.hand.length > robot.hand.length) {
-                debugger;
                 length = robot.hand.length -1;
             } else if (playerOne.hand.length < robot.hand.length) {
-                debugger;
                 length = playerOne.hand.length -1;
             }
         }
@@ -165,9 +167,11 @@
 
     $playButton.onclick = function() {
         compare(playerOne.hand[0], robot.hand[0]);
-        console.log(playerOne.hand.length);
-        console.log(robot.hand.length);
+        $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
+        $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
+        console.log(playerOne.hand[0].name);
+        console.log(robot.hand[0].name);
     }
 
 
-})();
+})(); 
