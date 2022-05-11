@@ -8,6 +8,7 @@
     const $playButton = document.querySelector('.play-game');
     const $playerCard = document.querySelector('#player-score');
     const $robotCard = document.querySelector('#robot-score');
+    const $refreshMessage = document.querySelector('.refresh');
 
     const cardNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     const cardSuits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
@@ -89,6 +90,7 @@
     // add both cards to that players hand
     
     function compare(player, computer) {
+        checkIfOut();
         let pValue = player.value;
         let rValue = computer.value;
         if (pValue > rValue) {
@@ -104,16 +106,7 @@
             robot.hand.shift();
             playerOne.hand.shift();
         } else {
-            // debugger;
             war();
-        }
-        // check if either player is out of cards
-        if (playerOne.hand.length === 0) {
-            $playerCard.value = 'You Win!'
-            $playButton.classList.add('hidden');
-
-        } else if (robot.hand.length === 0) {
-
         }
     }
 
@@ -144,6 +137,7 @@
     }
     
     function compareWar(player, computer) {
+        checkIfOut();
         let pValue = player.value;
         let rValue = computer.value
         // when war is called check values of top cards to determine winner
@@ -166,12 +160,26 @@
     }
 
     $playButton.onclick = function() {
-        compare(playerOne.hand[0], robot.hand[0]);
-        $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
-        $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
-        console.log(playerOne.hand[0].name);
-        console.log(robot.hand[0].name);
+            compare(playerOne.hand[0], robot.hand[0]);
+            $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
+            $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
+            console.log(playerOne.hand.length);
+        console.log(robot.hand.length);
     }
 
+    function checkIfOut() {
+        //checks if either player is out of cards
+        if (playerOne.hand.length === 0) {
+            $robotCard.value = 'I WIN HAHA';
+            $playButton.classList.add('hidden');
+            $refreshMessage.classList.remove('hidden');
+            return;
+        } else if (robot.hand.length === 0) {
+            $playerCard.value = 'You Win!'
+            $playButton.classList.add('hidden');
+            $refreshMessage.classList.remove('hidden');
+            return;
+        }
+    }
 
 })(); 

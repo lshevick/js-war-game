@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>War Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- TODO: make UI include draw button and message box which informs of the games status after each draw 
@@ -13,13 +14,14 @@
 
     <h1>Play War!</h1>
 
-    <label for="score" class="player-card">Player's Card</label>
-    <input type="text" id="player-score" name="score" value=''/>
+    <label for="score" class="player-card">Your Card</label>
+    <input type="text" id="player-score" name="score" value='' disabled/>
     
     <label for="score" class="🤖-card">🤖 Card</label>
-    <input type="text" id="robot-score" name="score"value=''/>
+    <input type="text" id="robot-score" name="score"value='' disabled/>
     
     <button class="play-game">Flip!</button>
+    <p class="refresh hidden">Refresh page to play again!</p>
 
     <script src="main.js"></script>
 </body>
