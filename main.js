@@ -9,6 +9,8 @@
     const $playerCard = document.querySelector('#player-score');
     const $robotCard = document.querySelector('#robot-score');
     const $refreshMessage = document.querySelector('.refresh');
+    const $playerAmount = document.querySelector('.player-card-amount');
+    const $robotAmount = document.querySelector('.robot-card-amount');
 
     const cardNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     const cardSuits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
@@ -167,14 +169,7 @@
         constestArr.length = 0;
     }
 
-    $playButton.onclick = function () {
-        compare(playerOne.hand[0], robot.hand[0]);
-        $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
-        $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
-        console.log(playerOne.hand.length);
-        console.log(robot.hand.length);
-    }
-
+    
     function checkIfOut() {
         //checks if either player is out of cards
         if (playerOne.hand.length === 0) {
@@ -189,5 +184,14 @@
             return;
         }
     }
-
+    
+    $playButton.onclick = function () {
+        compare(playerOne.hand[0], robot.hand[0]);
+        $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
+        $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
+        $playerAmount.innerHTML = `${playerOne.hand.length}`;
+        $robotAmount.innerHTML = `${robot.hand.length}`;
+        console.log(playerOne.hand.length);
+        console.log(robot.hand.length);
+    }
 })(); 
