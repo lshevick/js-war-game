@@ -48,6 +48,11 @@
         this.play = play;
         // game constructor needs to have the players playing the game, and a shuffle function to randomize cards
     }
+    //--------------------------------------------------------------------------------------------------------------------//
+
+    // BElOW ARE PROTOTYPE CHAINS //
+
+    //-------------------------------------------------------------------------------------------------------------------//
     Game.prototype.start = function () {
         this.players.push(new Player({ name: 'you' }));
         this.players.push(new Player({ name: 'BeepBoop' }));
@@ -55,26 +60,29 @@
         const deck = new Deck({ names: cardNames, suits: cardSuits });
         this.shuffle(deck);
         // console.log(deck);
-        this.players[0].hand = deck.slice(0, 26);
-        this.players[1].hand = deck.slice(26, 52);
+        // this.players[0].hand = deck.slice(0, 26);
+        // this.players[1].hand = deck.slice(26, 52);
         // console.log(this.players[0].hand);
         // console.log(this.players[1].hand);
-
+        this.deal(deck);
     };
-    //--------------------------------------------------------------------------------------------------------------------//
-
-
-    //-------------------------------------------------------------------------------------------------------------------//
     Game.prototype.shuffle = function (deck) {
         // take deck of cards and randomize their order.
         // function to take two cards and swap places for 1000 turns
-        for (let i = 0; i < 1000; i++) {
-            let card1 = Math.floor((Math.random() * deck.length));
-            let card2 = Math.floor((Math.random() * deck.length));
-            let mem = deck[card1];
-            deck[card1] = deck[card2];
-            deck[card2] = mem;
+        let m = deck.length, i;
+        while (m) {
+            i = Math.floor(Math.random() * m--);
+            [deck[m], deck[i]] = [deck[i], deck[m]];
         }
+        }
+    
+
+    Game.prototype.deal = function (deck) {
+        for (let i = (deck.length / 2); i--;) {
+            this.players[0].hand.push(deck.pop());
+            this.players[1].hand.push(deck.pop());
+        }
+
     }
 
     /////////////////////////////////////////////////this is where we begin 😼/////////////////////////////////////////////////////////////////////////////////
@@ -88,7 +96,7 @@
     // we need to compare the two values of cards on the top of the decks
     // whichever card is higher, that player takes both cards
     // add both cards to that players hand
-    
+
     function compare(player, computer) {
         checkIfOut();
         let pValue = player.value;
@@ -117,10 +125,10 @@
         console.log('WAR', robot.hand.length)
         // add three cards from each players hands to contestArr and compare the values of the current cards.
         if (playerOne.hand.length < 5 || robot.hand.length < 5) {
-            if(playerOne.hand.length > robot.hand.length) {
-                length = robot.hand.length -1;
+            if (playerOne.hand.length > robot.hand.length) {
+                length = robot.hand.length - 1;
             } else if (playerOne.hand.length < robot.hand.length) {
-                length = playerOne.hand.length -1;
+                length = playerOne.hand.length - 1;
             }
         }
         else {
@@ -131,11 +139,11 @@
             playerOne.hand.shift();
             constestArr.push(robot.hand[0]);
             robot.hand.shift();
-            
+
         }
         compareWar(playerOne.hand[0], robot.hand[0]);
     }
-    
+
     function compareWar(player, computer) {
         checkIfOut();
         let pValue = player.value;
@@ -159,11 +167,11 @@
         constestArr.length = 0;
     }
 
-    $playButton.onclick = function() {
-            compare(playerOne.hand[0], robot.hand[0]);
-            $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
-            $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
-            console.log(playerOne.hand.length);
+    $playButton.onclick = function () {
+        compare(playerOne.hand[0], robot.hand[0]);
+        $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
+        $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
+        console.log(playerOne.hand.length);
         console.log(robot.hand.length);
     }
 
