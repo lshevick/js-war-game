@@ -46,12 +46,15 @@
         Game.prototype.start = function() {
             this.players.push(new Player({name: 'you'}));
             this.players.push(new Player({name: 'BeepBoop'}));
+            console.log(this.players);
             const deck = new Deck({ names: cardNames, suits: cardSuits });
             this.shuffle(deck);
             console.log(deck);
-            this.players[0].hand = deck.cards.slice(0, 26);
-            this.players[1].hand = deck.cards.slice(26, 52);
+            this.players[0].hand = deck.slice(0, 26);
+            this.players[1].hand = deck.slice(26, 52);
             console.log(this.players[0].hand);
+            console.log(this.players[1].hand);
+
         };
     //--------------------------------------------------------------------------------------------------------------------//
 
