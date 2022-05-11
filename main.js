@@ -10,13 +10,13 @@
 
 
 
-// this is the card constructor
+    // this is the card constructor
     function Card({ value, name, suit }) {
         this.value = value;
         this.name = name;
         this.suit = suit;
     }
-//this is the deck constructor
+    //this is the deck constructor
     function Deck({ names, suits }) {
         this.names = names;
         this.suits = suits;
@@ -30,39 +30,57 @@
         return this.cards;
 
     }
-// this is the player constructor
-    function Player({ name, hand }) {
+    // this is the player constructor
+    function Player({ name, hand = [], score = 0}) {
         this.name = name;
         this.hand = hand;
-// players need to have a name to identify them, and a hand to hold the cards they are dealt
+        this.score = score;
+        // players need to have a name to identify them, and a hand to hold the cards they are dealt
     }
-// this is the game constructor
-    function Game() {
-// game constructor needs to have the players playing the game, and a shuffle function to randomize cards
-}
-const deck = new Deck({ names: cardNames, suits: cardSuits });
+    // this is the game constructor
+    function Game({players = [], comparison = []} = {}) {
+        this.players = players;
+        this.comparison = comparison;
+        // game constructor needs to have the players playing the game, and a shuffle function to randomize cards
+    }
+        Game.prototype.start = function() {
+            this.players.push(new Player({name: 'you'}));
+            this.players.push(new Player({name: 'BeepBoop'}));
+            const deck = new Deck({ names: cardNames, suits: cardSuits });
+            this.shuffle(deck);
+            console.log(deck);
+            this.players[0].hand = deck.cards.slice(0, 26);
+            this.players[1].hand = deck.cards.slice(26, 52);
+            console.log(this.players[0].hand);
+        };
+    //--------------------------------------------------------------------------------------------------------------------//
 
-Game.prototype.shuffle = function() {
-    // take deck of cards and randomize their order.
-    // function to take two cards and swap places for 1000 turns
-    for (let i=0; i < 1000; i++) {
-        let card1 = Math.floor((Math.random() * deck.length));
-        let card2 = Math.floor((Math.random() * deck.length));
-        let mem = deck[card1];
-        deck[card1] = deck[card2];
-        deck[card2] = mem;
-        
-    } 
-}
-/////////////////////////////////////////////////this is where we begin 😼/////////////////////////////////////////////////////////////////////////////////
+
+    //-------------------------------------------------------------------------------------------------------------------//
+    Game.prototype.shuffle = function (deck) {
+        // take deck of cards and randomize their order.
+        // function to take two cards and swap places for 1000 turns
+        for (let i = 0; i < 1000; i++) {
+            let card1 = Math.floor((Math.random() * deck.length));
+            let card2 = Math.floor((Math.random() * deck.length));
+            let mem = deck[card1];
+            deck[card1] = deck[card2];
+            deck[card2] = mem;
+        }
+    }
+
+    /////////////////////////////////////////////////this is where we begin 😼/////////////////////////////////////////////////////////////////////////////////
 
     const newGame = new Game();
-    newGame.shuffle();
+    // console.log(playerOne);
+    // console.log(computer);
+    // newGame.shuffle(deck);
 
-console.log(deck);
+    // console.log(deck);
+    // console.log(newGame.deal(deck));
+    newGame.start();
 
-
-// now what to do with these shuffled cards?? we need to play the game.... 
+    // now what to do with these shuffled cards?? we need to play the game.... 
 
 
 
