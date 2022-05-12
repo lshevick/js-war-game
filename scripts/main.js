@@ -247,30 +247,30 @@
     }
 
     function renderCards(card, display) {
-        let ascii_char;
+        let suit;
         let div = document.createElement('div');
         div.className = 'current-card';
 
         switch (card.suit) {
             case 'Diamonds':
-                ascii_char = '♦️';
+                suit = '♦️';
                 break;
             case 'Clubs':
-                ascii_char = '♣️';
+                suit = '♣️';
                 break;
             case 'Hearts':
-                ascii_char = '♥️';
+                suit = '♥️';
                 break;
             case 'Spades':
-                ascii_char = '♠️';
+                suit = '♠️';
                 break
         }
-        div.innerHTML = `<span class='number'>${card.name}</span><span class='suit'>${ascii_char}</span>`;
+        div.innerHTML = `<span class='number'>${card.name}</span><span class='suit'>${suit}</span>`;
         display.appendChild(div);
         setTimeout(() => {
             display.removeChild(div);
         }, 2000);
     }
-    
+
 
 })(); 

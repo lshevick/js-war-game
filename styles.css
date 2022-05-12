@@ -36,16 +36,26 @@ body {
     align-items: center;
 }
 
+.display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 220px;
 }
 
 label {
     text-align: center;
+}
+
+.robot-card,
+.player-card {
+    transition: all 0.5s ease-out;
 }
 
 .current-card {
@@ -57,6 +67,38 @@ label {
     height: 200px;
     border: 2px solid black;
     border-radius: 5px;
+    animation: append-animate-player 0.5s ease-out;
+}
+
+.robot-card .current-card{
+    animation: append-animate-robot 0.5s ease-out;
+}
+
+.player-card .current-card{
+    animation: append-animate-player 0.5s ease-out;
+}
+
+
+@keyframes append-animate-player {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes append-animate-robot {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
 }
 
 span.number,
