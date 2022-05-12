@@ -8,8 +8,8 @@
     <title>War Game</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -20,8 +20,10 @@
     <div class="game">
         <h1>Play War!</h1>
         <div class="inner-game">
+            <div class="hand">
+                <div class="player-hand-amount"></div>
+            </div>
             <div class="card">
-
                 <label for="score" class="player-card">Your Card</label>
                 <input type="text" id="player-score" name="score" value='' disabled />
                 <div>
@@ -29,18 +31,22 @@
                 </div>
             </div>
             <div class="card">
-
                 <label for="score" class="🤖-card">🤖 Card</label>
                 <input type="text" id="robot-score" name="score" value='' disabled />
                 <div>
                     <p class="robot-card-amount"></p>
                 </div>
             </div>
+            <div class="hand">
+                <div class="robot-hand-amount"></div>
+            </div>
 
         </div>
-        <button class="play-game button-57" role="button"><span class="text">Play</span><span>Flip a Card!</span>!</button>
+        <button class="play-game button-57" role="button">
+            <span class="text">Play</span><span>Flip a Card!</span>!
+        </button>
         <p class="refresh hidden">Refresh page to play again!</p>
-        
+
         <div class="contest-arena">
             <!-- set different phrases to appear when different events happen -->
             <p class="arena hidden" id="contest">🤠</p>

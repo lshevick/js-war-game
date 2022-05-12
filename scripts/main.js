@@ -12,6 +12,9 @@
     const $playerAmount = document.querySelector('.player-card-amount');
     const $robotAmount = document.querySelector('.robot-card-amount');
     const $arena = document.querySelector('#contest');
+    const $playerHand = document.querySelector('.player-hand-amount');
+    const $robotHand = document.querySelector('.robot-hand-amount');
+
 
     const cardNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     const cardSuits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
@@ -69,18 +72,18 @@
             [deck[m], deck[i]] = [deck[i], deck[m]];
         }
     }
-
-
+    
+    
     Game.prototype.deal = function (deck) {
         for (let i = (deck.length / 2); i--;) {
             this.players[0].hand.push(deck.pop());
             this.players[1].hand.push(deck.pop());
         }
-
+        
     }
-
+    
     /////////////////////////////////////////////////this is where we begin 😼/////////////////////////////////////////////////////////////////////////////////
-
+    
     const newGame = new Game();
     newGame.start();
     const playerOne = newGame.players[0];
@@ -89,7 +92,7 @@
     // we need to compare the two values of cards on the top of the decks
     // whichever card is higher, that player takes both cards
     // add both cards to that players hand
-
+    
     function compare(player, computer) {
         checkIfOut()
         let pValue = player.value;
@@ -108,8 +111,11 @@
             playerOne.hand.shift();
         } else {
             $playButton.disabled = true;
-            $playButton.textContent = 'WAR!!'
-            war();
+            $playButton.classList.add = 'hidden';
+            updateWarStatus();
+            setTimeout(() => {
+                war();
+            }, 2000);
         }
     }
 
@@ -135,7 +141,6 @@
             contestArr.push(robot.hand[0]);
             robot.hand.shift();
         }
-        updateWarStatus();
         setTimeout(() => {
             compareWar(playerOne.hand[0], robot.hand[0]);
         }, 3000);
@@ -166,7 +171,6 @@
         contestArr.length = 0;
         setTimeout(() => {
             $playButton.disabled = false;
-            $playButton.textContent = 'Play!!!'
             revertWarStatus();
         }, 2000);
     }
@@ -175,18 +179,20 @@
     function checkIfOut() {
         //checks if either player is out of cards
         if (playerOne.hand.length === 0) {
+            debugger;
             $playerAmount.innerHTML = '😢';
             $playerCard.value = '';
             $robotCard.value = 'I WIN HAHA';
-            $playButton.classList.add('hidden');
-            $refreshMessage.classList.remove('hidden');
+            $playButton.style.visibility ='hidden';
+            $refreshMessage.style.visibility = 'visible';
             return;
         } else if (robot.hand.length === 0) {
+            debugger;
             $robotAmount.innerHTML = '🤖: sad beep boop';
             $robotCard.value = '';
             $playerCard.value = 'You Win!'
-            $playButton.classList.add('hidden');
-            $refreshMessage.classList.remove('hidden');
+            $playButton.style.visibility ='hidden';
+            $refreshMessage.style.visibility = 'visible';
             return;
         } else {
             return;
@@ -197,8 +203,10 @@
         compare(playerOne.hand[0], robot.hand[0]);
         $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
         $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
-        $playerAmount.innerHTML = `${playerOne.hand.length}`;
-        $robotAmount.innerHTML = `${robot.hand.length}`;
+        // $playerAmount.innerHTML = `${playerOne.hand.length}`;
+        // $robotAmount.innerHTML = `${robot.hand.length}`;
+        updateHand(playerOne); 
+        updateHand(robot);
     }
 
     // ======================== CALLBACK FUNCTIONS ===================================//
@@ -211,6 +219,15 @@
     function revertWarStatus() {
         $arena.classList.add('hidden');
         $arena.textContent = '';
+    }
+
+    function updateHand(player) {
+        let handAmount = player.hand.length;
+        if (player === robot) {
+            $playerHand.style.height = `${handAmount}vh`;
+        } else {
+            $robotHand.style.height = `${handAmount}vh`;
+        }
     }
 
 })(); 
