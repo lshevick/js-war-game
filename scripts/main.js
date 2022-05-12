@@ -14,6 +14,8 @@
     const $arena = document.querySelector('#contest');
     const $playerHand = document.querySelector('.player-hand-amount');
     const $robotHand = document.querySelector('.robot-hand-amount');
+    const $playerDisplay = document.querySelector('.player-card');
+    const $robotDisplay = document.querySelector('.robot-card');
 
 
     const cardNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -49,6 +51,7 @@
     // this is the game constructor
     function Game() {
         this.players = [];
+        this.deck = [];
     }
     //--------------------------------------------------------------------------------------------------------------------//
 
@@ -72,18 +75,18 @@
             [deck[m], deck[i]] = [deck[i], deck[m]];
         }
     }
-    
-    
+
+
     Game.prototype.deal = function (deck) {
         for (let i = (deck.length / 2); i--;) {
             this.players[0].hand.push(deck.pop());
             this.players[1].hand.push(deck.pop());
         }
-        
+
     }
-    
-    /////////////////////////////////////////////////this is where we begin 😼/////////////////////////////////////////////////////////////////////////////////
-    
+
+    /////////////////////////////////////////////////START GAME BELOW/////////////////////////////////////////////////////////////////////////////////
+
     const newGame = new Game();
     newGame.start();
     const playerOne = newGame.players[0];
@@ -92,7 +95,7 @@
     // we need to compare the two values of cards on the top of the decks
     // whichever card is higher, that player takes both cards
     // add both cards to that players hand
-    
+
     function compare(player, computer) {
         checkIfOut()
         let pValue = player.value;
@@ -111,7 +114,7 @@
             playerOne.hand.shift();
         } else {
             $playButton.disabled = true;
-            $playButton.classList.add = 'hidden';
+            $playButton.style.visibility = 'hidden';
             updateWarStatus();
             setTimeout(() => {
                 war();
@@ -143,7 +146,7 @@
         }
         setTimeout(() => {
             compareWar(playerOne.hand[0], robot.hand[0]);
-        }, 3000);
+        }, 2000);
     }
 
     function compareWar(player, computer) {
@@ -157,6 +160,8 @@
             playerOne.hand.push(playerOne.hand[0]);
             playerOne.hand.shift();
             robot.hand.shift();
+            updateHand(playerOne);
+            updateHand(robot);
             $arena.textContent = `You took all the cards!!! 🤩`;
         } else if (pValue < rValue) {
             robot.hand.push.apply(robot.hand, contestArr);
@@ -164,6 +169,8 @@
             robot.hand.push(playerOne.hand[0]);
             playerOne.hand.shift();
             robot.hand.shift();
+            updateHand(playerOne);
+            updateHand(robot);
             $arena.textContent = '🤖 took your cards!!! 😵‍💫';
         } else {
             war();
@@ -172,6 +179,7 @@
         setTimeout(() => {
             $playButton.disabled = false;
             revertWarStatus();
+            $playButton.style.visibility = 'visible';
         }, 2000);
     }
 
@@ -183,7 +191,7 @@
             $playerAmount.innerHTML = '😢';
             $playerCard.value = '';
             $robotCard.value = 'I WIN HAHA';
-            $playButton.style.visibility ='hidden';
+            $playButton.style.visibility = 'hidden';
             $refreshMessage.style.visibility = 'visible';
             return;
         } else if (robot.hand.length === 0) {
@@ -191,7 +199,7 @@
             $robotAmount.innerHTML = '🤖: sad beep boop';
             $robotCard.value = '';
             $playerCard.value = 'You Win!'
-            $playButton.style.visibility ='hidden';
+            $playButton.style.visibility = 'hidden';
             $refreshMessage.style.visibility = 'visible';
             return;
         } else {
@@ -201,11 +209,13 @@
 
     $playButton.onclick = function () {
         compare(playerOne.hand[0], robot.hand[0]);
-        $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
-        $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
+        renderCards(playerOne.hand[0], $playerDisplay);
+        renderCards(robot.hand[0], $robotDisplay);
+        // $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
+        // $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
         // $playerAmount.innerHTML = `${playerOne.hand.length}`;
         // $robotAmount.innerHTML = `${robot.hand.length}`;
-        updateHand(playerOne); 
+        updateHand(playerOne);
         updateHand(robot);
     }
 
@@ -228,6 +238,29 @@
         } else {
             $robotHand.style.height = `${handAmount}vh`;
         }
+    }
+
+    function renderCards(card, display) {
+        let ascii_char;
+        let div = document.createElement('div');
+        div.className = 'current-card';
+
+        switch (card.suit) {
+            case 'Diamonds':
+                ascii_char = '♦️';
+                break;
+            case 'Clubs':
+                ascii_char = '♣️';
+                break;
+            case 'Hearts':
+                ascii_char = '♥️';
+                break;
+            case 'Spades':
+                ascii_char = '♠️';
+                break
+        }
+        div.innerHTML = `<span class='number'>${card.name}</span><span class='suit'>${ascii_char}</span>`;
+        display.appendChild(div);
     }
 
 })(); 

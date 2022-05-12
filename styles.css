@@ -43,6 +43,30 @@ body {
     align-items: center;
 }
 
+label {
+    text-align: center;
+}
+
+.current-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 150px;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+span.number,
+span.suit {
+    font-size: 2.5rem;
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding-top: 8px;
+}
+
 .contest-arena {
     background-color: #ccc;
     display: flex;
@@ -56,10 +80,11 @@ body {
 
 .hand {
     left: 20px;
-    height: 52vh;
+    height: 51vh;
     background: rgb(136, 236, 64);
     background: linear-gradient(180deg, rgb(96, 167, 45) 0%, rgb(132, 190, 23) 77%, rgba(221, 81, 0, 1) 100%);
     width: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
 
 /* .hand:after {
