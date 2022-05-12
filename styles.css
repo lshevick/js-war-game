@@ -41,6 +41,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 220px;
 }
 
 label {
@@ -99,6 +100,7 @@ span.suit {
     background-color: #eee;
     height: 26vh;
     width: 20px;
+    transition: all 0.2s ease;
 }
 
 .robot-hand-amount {
@@ -106,6 +108,7 @@ span.suit {
     height: 26vh;
     transform-origin: bottom;
     width: 20px;
+    transition: all 0.3s ease-out;
 }
 
 
@@ -116,6 +119,7 @@ span.suit {
     position: relative;
     overflow: hidden;
     border: 1px solid #18181a;
+    border-radius: 10px;
     color: #18181a;
     display: inline-block;
     font-size: 15px;

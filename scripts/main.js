@@ -208,18 +208,24 @@
     }
 
     $playButton.onclick = function () {
-        compare(playerOne.hand[0], robot.hand[0]);
+        $playButton.style.setProperty('pointer-events', 'none');
+        setTimeout(() => {
+            $playButton.style.setProperty('pointer-events', 'auto');
+        }, 2000);
         renderCards(playerOne.hand[0], $playerDisplay);
         renderCards(robot.hand[0], $robotDisplay);
+        setTimeout(() => {
+            compare(playerOne.hand[0], robot.hand[0]);
+            updateHand(playerOne);
+            updateHand(robot);
+        }, 2000);
         // $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
         // $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
         // $playerAmount.innerHTML = `${playerOne.hand.length}`;
         // $robotAmount.innerHTML = `${robot.hand.length}`;
-        updateHand(playerOne);
-        updateHand(robot);
     }
 
-    // ======================== CALLBACK FUNCTIONS ===================================//
+    // ======================== FUNCTION DECLARATIONS ===================================//
 
     function updateWarStatus() {
         $arena.classList.remove('hidden');
@@ -261,6 +267,10 @@
         }
         div.innerHTML = `<span class='number'>${card.name}</span><span class='suit'>${ascii_char}</span>`;
         display.appendChild(div);
+        setTimeout(() => {
+            display.removeChild(div);
+        }, 2000);
     }
+    
 
 })(); 
