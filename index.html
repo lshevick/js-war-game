@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,28 +8,38 @@
     <title>War Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <!-- TODO: make UI include draw button and message box which informs of the games status after each draw 
         e.g. what cards were draw? Which player won the hand? How many cards does each player have?
     -->
 
-    <h1>Play War!</h1>
+    <div class="game">
+        <h1>Play War!</h1>
+        <div class="inner-game">
+            <div class="card">
 
-    <label for="score" class="player-card">Your Card</label>
-    <input type="text" id="player-score" name="score" value='' disabled/>
-    <div>
-        <p class="player-card-amount"></p>
-    </div>
-    
-    <label for="score" class="🤖-card">🤖 Card</label>
-    <input type="text" id="robot-score" name="score"value='' disabled/>
-    <div>
-        <p class="robot-card-amount"></p>
-    </div>
+                <label for="score" class="player-card">Your Card</label>
+                <input type="text" id="player-score" name="score" value='' disabled />
+                <div>
+                    <p class="player-card-amount"></p>
+                </div>
+            </div>
+            <div class="card">
 
-    <button class="play-game">Flip!</button>
-    <p class="refresh hidden">Refresh page to play again!</p>
+                <label for="score" class="🤖-card">🤖 Card</label>
+                <input type="text" id="robot-score" name="score" value='' disabled />
+                <div>
+                    <p class="robot-card-amount"></p>
+                </div>
+            </div>
+
+        </div>
+        <button class="play-game">Flip!</button>
+        <p class="refresh hidden">Refresh page to play again!</p>
+    </div>
 
     <script src="main.js"></script>
 </body>
+
 </html>
