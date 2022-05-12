@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>War Game</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -35,8 +38,13 @@
             </div>
 
         </div>
-        <button class="play-game">Flip!</button>
+        <button class="play-game button-57" role="button"><span class="text">Play</span><span>Flip a Card!</span>!</button>
         <p class="refresh hidden">Refresh page to play again!</p>
+        
+        <div class="contest-arena">
+            <!-- set different phrases to appear when different events happen -->
+            <p class="arena hidden" id="contest">🤠</p>
+        </div>
     </div>
 
     <script src="./scripts/main.js"></script>
