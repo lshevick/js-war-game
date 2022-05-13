@@ -6,8 +6,6 @@
     // 3. Must create basic ui
 
     const $playButton = document.querySelector('.play-game');
-    const $playerCard = document.querySelector('#player-score');
-    const $robotCard = document.querySelector('#robot-score');
     const $refreshMessage = document.querySelector('.refresh');
     const $playerAmount = document.querySelector('.player-card-amount');
     const $robotAmount = document.querySelector('.robot-card-amount');
@@ -97,28 +95,31 @@
     // add both cards to that players hand
 
     function compare(player, computer) {
-        checkIfOut()
-        let pValue = player.value;
-        let rValue = computer.value;
-        if (pValue > rValue) {
-            // adds cards to winners hand
-            playerOne.hand.push(computer);
-            playerOne.hand.push(player);
-            // removes cards from losers hand
-            playerOne.hand.shift();
-            robot.hand.shift();
-        } else if (pValue < rValue) {
-            robot.hand.push(player);
-            robot.hand.push(computer);
-            robot.hand.shift();
-            playerOne.hand.shift();
+        if (!checkIfOut()) {
+            let pValue = player.value;
+            let rValue = computer.value;
+            if (pValue > rValue) {
+                // adds cards to winners hand
+                playerOne.hand.push(computer);
+                playerOne.hand.push(player);
+                // removes cards from losers hand
+                playerOne.hand.shift();
+                robot.hand.shift();
+            } else if (pValue < rValue) {
+                robot.hand.push(player);
+                robot.hand.push(computer);
+                robot.hand.shift();
+                playerOne.hand.shift();
+            } else {
+                $playButton.disabled = true;
+                $playButton.style.visibility = 'hidden';
+                updateWarStatus();
+                setTimeout(() => {
+                    war();
+                }, 2000);
+            }
         } else {
-            $playButton.disabled = true;
-            $playButton.style.visibility = 'hidden';
-            updateWarStatus();
-            setTimeout(() => {
-                war();
-            }, 2000);
+            return false;
         }
     }
 
@@ -129,6 +130,7 @@
         console.log('WAR', robot.hand.length)
         // add three cards from each players hands to contestArr and compare the values of the current cards.
         if (playerOne.hand.length < 5 || robot.hand.length < 5) {
+            // debugger;
             if (playerOne.hand.length > robot.hand.length) {
                 length = robot.hand.length - 1;
             } else if (playerOne.hand.length < robot.hand.length) {
@@ -144,70 +146,79 @@
             contestArr.push(robot.hand[0]);
             robot.hand.shift();
         }
+        debugger;
+        updateWarHand();
         setTimeout(() => {
             compareWar(playerOne.hand[0], robot.hand[0]);
         }, 2000);
     }
 
     function compareWar(player, computer) {
-        checkIfOut();
-        let pValue = player.value;
-        let rValue = computer.value
-        // when war is called check values of top cards to determine winner
-        if (pValue > rValue) {
-            playerOne.hand.push.apply(playerOne.hand, contestArr);
-            playerOne.hand.push(robot.hand[0]);
-            playerOne.hand.push(playerOne.hand[0]);
-            playerOne.hand.shift();
-            robot.hand.shift();
-            updateHand(playerOne);
-            updateHand(robot);
-            $arena.textContent = `You took all the cards!!! 🤩`;
-        } else if (pValue < rValue) {
-            robot.hand.push.apply(robot.hand, contestArr);
-            robot.hand.push(robot.hand[0]);
-            robot.hand.push(playerOne.hand[0]);
-            playerOne.hand.shift();
-            robot.hand.shift();
-            updateHand(playerOne);
-            updateHand(robot);
-            $arena.textContent = '🤖 took your cards!!! 😵‍💫';
+        if (!checkIfOut()) {
+
+            let pValue = player.value;
+            let rValue = computer.value
+            // when war is called check values of top cards to determine winner
+            if (pValue > rValue) {
+                playerOne.hand.push.apply(playerOne.hand, contestArr);
+                playerOne.hand.push(robot.hand[0]);
+                playerOne.hand.push(playerOne.hand[0]);
+                playerOne.hand.shift();
+                robot.hand.shift();
+                updateHand(playerOne);
+                updateHand(robot);
+                $arena.textContent = `You took all the cards!!! 🤩`;
+            } else if (pValue < rValue) {
+                robot.hand.push.apply(robot.hand, contestArr);
+                robot.hand.push(robot.hand[0]);
+                robot.hand.push(playerOne.hand[0]);
+                playerOne.hand.shift();
+                robot.hand.shift();
+                updateHand(playerOne);
+                updateHand(robot);
+                $arena.textContent = '🤖 took your cards!!! 😵‍💫';
+            } else {
+                war();
+            }
+            contestArr.length = 0;
+            setTimeout(() => {
+                $playButton.disabled = false;
+                revertWarStatus();
+                $playButton.style.visibility = 'visible';
+            }, 2000);
         } else {
-            war();
+            return;
         }
-        contestArr.length = 0;
-        setTimeout(() => {
-            $playButton.disabled = false;
-            revertWarStatus();
-            $playButton.style.visibility = 'visible';
-        }, 2000);
     }
 
 
     function checkIfOut() {
-        //checks if either player is out of cards
-        if (playerOne.hand.length === 0) {
-            debugger;
-            $playerAmount.innerHTML = '😢';
-            $playerCard.value = '';
-            $robotCard.value = 'I WIN HAHA';
+        //checks if either player is out of cards & determine winner
+        if (playerOne.hand.length <= 1) {
+            // debugger;
+            updateHand(playerOne);
+            updateHand(robot);
+            $robotAmount.innerHTML = 'HAHA TAKE THAT 🤖'
+            $playerAmount.innerHTML = '😢 you lost...';
             $playButton.style.visibility = 'hidden';
             $refreshMessage.style.visibility = 'visible';
-            return;
-        } else if (robot.hand.length === 0) {
-            debugger;
-            $robotAmount.innerHTML = '🤖: sad beep boop';
-            $robotCard.value = '';
-            $playerCard.value = 'You Win!'
+            return true;
+        } else if (robot.hand.length <= 1) {
+            // debugger;
+            updateHand(playerOne);
+            updateHand(robot);
+            $playerAmount.innerHTML = 'YOU WIN 🥳'
+            $robotAmount.innerHTML = 'sad beep boop 🤖';
             $playButton.style.visibility = 'hidden';
             $refreshMessage.style.visibility = 'visible';
-            return;
+            return true;
         } else {
-            return;
+            return false;
         }
     }
 
     $playButton.onclick = function () {
+        //setProperty for pointer events is to prevent button spamming
         $playButton.style.setProperty('pointer-events', 'none');
         setTimeout(() => {
             $playButton.style.setProperty('pointer-events', 'auto');
@@ -219,10 +230,6 @@
             updateHand(playerOne);
             updateHand(robot);
         }, 2000);
-        // $playerCard.value = `${playerOne.hand[0].name} of ${playerOne.hand[0].suit}`;
-        // $robotCard.value = `${robot.hand[0].name} of ${robot.hand[0].suit}`;
-        // $playerAmount.innerHTML = `${playerOne.hand.length}`;
-        // $robotAmount.innerHTML = `${robot.hand.length}`;
     }
 
     // ======================== FUNCTION DECLARATIONS ===================================//
@@ -244,6 +251,11 @@
         } else {
             $robotHand.style.height = `${handAmount}vh`;
         }
+    }
+
+    function updateWarHand() {
+            $playerHand.style.height = `${robot.hand.length + 3}vh`;
+            $robotHand.style.height = `${playerOne.hand.length + 3}vh`;
     }
 
     function renderCards(card, display) {
@@ -272,5 +284,20 @@
         }, 2000);
     }
 
+    function playEntireGame() {
+        while (playerOne.hand.length > 5 || robot.hand.length > 5) {
+            console.log(playerOne.hand.length);
+            console.log(robot.hand.length);
+            compare(playerOne.hand[0], robot.hand[0]);
+            if (checkIfOut()) break;
+        }
+        return;
+    }
+
+
+    // playEntireGame();
+
+    //SETTIMEOUTS ARE COMMENTED OUT TO RUN WHOLE GAME. 
+    // WRITE ENDGAME FUNCTION TO STOP GAME AND PREVENT INFINITE LOOP
 
 })(); 

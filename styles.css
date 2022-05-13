@@ -43,18 +43,23 @@ body {
 }
 
 .card {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 220px;
+    width: 9rem;
+    height: 12.5rem;
 }
 
 label {
+    line-height: 1rem;
     text-align: center;
+    padding-bottom: 0.5rem;
 }
 
 .robot-card,
 .player-card {
+    height: 12.5rem;
     transition: all 0.5s ease-out;
 }
 
@@ -63,8 +68,8 @@ label {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 150px;
-    height: 200px;
+    width: 9rem;
+    height: 12.5rem;
     border: 2px solid black;
     border-radius: 5px;
     animation: append-animate-player 0.5s ease-out;
@@ -107,7 +112,7 @@ span.suit {
     width: 100%;
     display: block;
     text-align: center;
-    padding-top: 8px;
+    padding-top: 0.5rem;
 }
 
 .contest-arena {
@@ -164,8 +169,8 @@ span.suit {
     border-radius: 10px;
     color: #18181a;
     display: inline-block;
-    font-size: 15px;
-    line-height: 15px;
+    font-size: 2rem;
+    line-height: 0.1rem;
     padding: 30px 30px 29px;
     text-decoration: none;
     cursor: pointer;
@@ -185,6 +190,7 @@ span.suit {
     color: white;
     display: block;
     position: absolute;
+    font-size: 1rem;
     bottom: 0;
     transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
     z-index: 100;
