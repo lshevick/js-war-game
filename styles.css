@@ -128,14 +128,21 @@ span.suit {
 }
 
 .contest-arena {
+    position: relative;
     background-color: #ccc;
     display: flex;
     justify-content: center;
     width: 20rem;
-    margin: 2rem;
-    padding: 2rem;
+    height: 90px;
+    margin: 32px;
+    padding: 32px;
     border-radius: 20px;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.arena {
+    height: 3rem;
+    background-color: #dd5100;
 }
 
 .hand {
@@ -152,7 +159,7 @@ span.suit {
     background-color: #eee;
     height: 26vh;
     width: 20px;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-out;
 }
 
 .robot-hand-amount {
