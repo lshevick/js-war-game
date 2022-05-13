@@ -14,6 +14,7 @@
     const $robotHand = document.querySelector('.robot-hand-amount');
     const $playerDisplay = document.querySelector('.player-card');
     const $robotDisplay = document.querySelector('.robot-card');
+    const $cardBack = document.querySelector('.card-container');
 
 
     const cardNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -146,9 +147,8 @@
             contestArr.push(robot.hand[0]);
             robot.hand.shift();
         }
-        debugger;
-        updateWarHand();
         setTimeout(() => {
+            updateWarHand();
             compareWar(playerOne.hand[0], robot.hand[0]);
         }, 2000);
     }

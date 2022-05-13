@@ -1,7 +1,7 @@
 html,
 * {
     box-sizing: border-box;
-    font-family: Inter, sans-serif;
+    font-family: Aladin, sans-serif;
 }
 
 .hidden {
@@ -28,8 +28,17 @@ body {
     z-index: 1;
 }
 
+h1 {
+    position: relative;
+    top: 2rem;
+    font-family: Aladin, cursive;
+    font-size: 3rem;
+    transform: scale(1.5) rotate(-10deg) translate(-1px, 20px);
+}
+
 .inner-game {
     width: 100%;
+    height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -42,24 +51,26 @@ body {
     align-items: center;
 }
 
-.card {
+.card-container {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 9rem;
-    height: 12.5rem;
+    height: 13rem;
 }
+
 
 label {
     line-height: 1rem;
     text-align: center;
     padding-bottom: 0.5rem;
+    transform: scale(1.5);
 }
 
 .robot-card,
 .player-card {
-    height: 12.5rem;
+    height: 13rem;
     transition: all 0.5s ease-out;
 }
 
@@ -69,39 +80,40 @@ label {
     justify-content: center;
     flex-direction: column;
     width: 9rem;
-    height: 12.5rem;
+    height: 13rem;
     border: 2px solid black;
     border-radius: 5px;
-    animation: append-animate-player 0.5s ease-out;
 }
 
-.robot-card .current-card{
+.robot-card .current-card {
     animation: append-animate-robot 0.5s ease-out;
 }
 
-.player-card .current-card{
+.player-card .current-card {
     animation: append-animate-player 0.5s ease-out;
 }
 
 
 @keyframes append-animate-player {
     from {
-        transform: translateX(-100%);
+        transform: rotateY(100deg);
         opacity: 0;
     }
+
     to {
-        transform: translateX(0%);
+        transform: rotateY(0deg);
         opacity: 1;
     }
 }
 
 @keyframes append-animate-robot {
     from {
-        transform: translateX(100%);
+        transform: rotateY(100deg);
         opacity: 0;
     }
+
     to {
-        transform: translateX(0%);
+        transform: rotateY(0deg);
         opacity: 1;
     }
 }
@@ -135,19 +147,12 @@ span.suit {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
 
-/* .hand:after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    background-color: #EEE;
-    height: 80px;
-} */
 
 .player-hand-amount {
     background-color: #eee;
     height: 26vh;
     width: 20px;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease-in-out;
 }
 
 .robot-hand-amount {
@@ -227,4 +232,5 @@ span.suit {
     transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
 }
 
-/* CSS Button by Scott Branch */
+/* CSS Button by Scott Branch 
+    Modified by Levi Shevick */
