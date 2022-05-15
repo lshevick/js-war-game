@@ -1,3 +1,38 @@
+:root[color-mode='light'] {
+    --primary: #eee;
+    --secondary: #ccc;
+    --tertiary: black;   
+}
+
+:root[color-mode='dark'] {
+    --primary: #181818;
+    --secondary: #292929;
+    --tertiary: white;
+}
+
+:root[color-mode='light'] .light--hidden {
+    display: none;
+}
+
+:root[color-mode='dark'] .dark--hidden {
+    display: none;
+}
+
+.color-mode-btn {
+    font-size: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--primary);
+    color: var(--tertiary);
+}
+
+.color-mode-btn:hover {
+    border: 2px solid var(--tertiary);
+}
+
 html,
 * {
     box-sizing: border-box;
@@ -11,14 +46,10 @@ html,
 body {
     margin: 0;
     padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
 }
 
 .game {
-    background: #EEE;
+    background-color: var(--primary);
     width: 100vw;
     height: 100vh;
     align-items: center;
@@ -29,6 +60,7 @@ body {
 }
 
 h1 {
+    color: var(--tertiary);
     position: relative;
     top: 2rem;
     font-family: Aladin, cursive;
@@ -62,6 +94,7 @@ h1 {
 
 
 label {
+    color: var(--tertiary);
     line-height: 1rem;
     text-align: center;
     padding-bottom: 0.5rem;
@@ -75,13 +108,14 @@ label {
 }
 
 .current-card {
+    color: var(--tertiary);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     width: 9rem;
     height: 13rem;
-    border: 2px solid black;
+    border: 2px solid var(--tertiary);
     border-radius: 5px;
 }
 
@@ -128,22 +162,20 @@ span.suit {
 }
 
 .contest-arena {
+    font-size: 2rem;
     position: relative;
-    background-color: #ccc;
+    color: var(--tertiary);
+    background-color: var(--secondary);
     display: flex;
+    align-items: center;
     justify-content: center;
-    width: 20rem;
-    height: 90px;
-    margin: 32px;
-    padding: 32px;
+    width: 80%;
+    height: 3rem;
+    margin-bottom: 2rem;
     border-radius: 20px;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
-.arena {
-    height: 3rem;
-    background-color: #dd5100;
-}
 
 .hand {
     left: 20px;
@@ -156,14 +188,14 @@ span.suit {
 
 
 .player-hand-amount {
-    background-color: #eee;
+    background-color: var(--primary);
     height: 26vh;
     width: 20px;
     transition: all 0.3s ease-out;
 }
 
 .robot-hand-amount {
-    background-color: #EEE;
+    background-color: var(--primary);
     height: 26vh;
     transform-origin: bottom;
     width: 20px;
@@ -177,16 +209,16 @@ span.suit {
     margin-top: 3rem;
     position: relative;
     overflow: hidden;
-    border: 1px solid #18181a;
+    border: 1px solid var(--tertiary);
     border-radius: 10px;
-    color: #18181a;
+    color: var(--tertiary);
     display: inline-block;
     font-size: 2rem;
     line-height: 0.1rem;
     padding: 30px 30px 29px;
     text-decoration: none;
     cursor: pointer;
-    background: #fff;
+    background: var(--primary);
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;

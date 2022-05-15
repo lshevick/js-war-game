@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" color-mode="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -18,11 +18,14 @@
 <body>
     <!-- TODO: MAKE RESPONSIVE -->
 
+<button class="color-mode-btn light--hidden" aria-label="Toggle light mode">Light Mode</button>
+<button class="color-mode-btn dark--hidden" aria-label="Toggle dark mode">Dark Mode</button>
+
     <div class="game">
         <h1>War!</h1>
         <div class="inner-game">
             <div class="hand">
-                <div class="player-hand-amount"></div>
+                <div class="robot-hand-amount"></div>
             </div>
             
             <div class="display">
@@ -34,7 +37,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="display">
                 <label for="score" class="🤖-label">🤖 Card</label>
                 <div class="card-container">
@@ -44,9 +47,9 @@
                     </div>
                 </div>
             </div>
-
-                <div class="hand">
-                    <div class="robot-hand-amount"></div>
+            
+            <div class="hand">
+                    <div class="player-hand-amount"></div>
                 </div>
 
         </div>
@@ -57,7 +60,6 @@
 
         <div class="contest-arena" id="contest">
             <!-- set different phrases to appear when different events happen -->
-            <div class="arena"></div>
         </div>
     </div>
 

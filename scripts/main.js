@@ -146,6 +146,7 @@
             robot.hand.shift();
         }
         setTimeout(() => {
+            debugger;
             updateWarHand();
             compareWar(playerOne.hand[0], robot.hand[0]);
         }, 2000);
@@ -163,8 +164,8 @@
                 playerOne.hand.push(playerOne.hand[0]);
                 playerOne.hand.shift();
                 robot.hand.shift();
-                updateHand(playerOne);
-                updateHand(robot);
+                // updateHand(playerOne);
+                // updateHand(robot);
                 $arena.textContent = `You took all the cards!!! 🤩`;
             } else if (pValue < rValue) {
                 robot.hand.push.apply(robot.hand, contestArr);
@@ -172,8 +173,8 @@
                 robot.hand.push(playerOne.hand[0]);
                 playerOne.hand.shift();
                 robot.hand.shift();
-                updateHand(playerOne);
-                updateHand(robot);
+                // updateHand(playerOne);
+                // updateHand(robot);
                 $arena.textContent = '🤖 took your cards!!! 😵‍💫';
             } else {
                 debugger;
@@ -183,6 +184,7 @@
             setTimeout(() => {
                 $playButton.disabled = false;
                 revertWarStatus();
+                updateHand();
                 $playButton.style.visibility = 'visible';
             }, 2000);
         } else {
@@ -200,50 +202,40 @@
         renderCards(robot.hand[0], $robotDisplay);
         setTimeout(() => {
             compare(playerOne.hand[0], robot.hand[0]);
-            updateHand(playerOne);
-            updateHand(robot);
+            updateHand();
         }, 2000);
     }
 
     // ======================== FUNCTION DECLARATIONS ===================================//
 
     function updateWarStatus() {
-        // $arena.classList.remove('hidden');
-        $arena.textContent = 'Cards have been added to the WAR arena!';
+        $arena.textContent = 'Cards have been added!';
     }
 
     function revertWarStatus() {
-        // $arena.classList.add('hidden');
         $arena.textContent = '';
     }
 
     function updateWinStatus(player) {
         if (player === playerOne) {
-            // $arena.classList.remove('hidden');
             $arena.textContent = 'You got the cards! 🎉'
         } else {
-            // $arena.classList.remove('hidden');
             $arena.textContent = 'You lost your cards! 💀'
         }
     }
 
     function revertWinStatus() {
-        // $arena.classList.add('hidden');
         $arena.textContent = ' ';
     }
 
-    function updateHand(player) {
-        let handAmount = player.hand.length;
-        if (player === robot) {
-            $playerHand.style.height = `${handAmount}vh`;
-        } else {
-            $robotHand.style.height = `${handAmount}vh`;
+    function updateHand() {
+            $playerHand.style.height = `${playerOne.hand.length}vh`
+            $robotHand.style.height = `${robot.hand.length}vh`
         }
-    }
 
     function updateWarHand() {
-        $playerHand.style.height = `${(robot.hand.length + 3)}vh`;
-        $robotHand.style.height = `${(playerOne.hand.length + 3)}vh`;
+        $playerHand.style.height = `${playerOne.hand.length + (contestArr.length / 2)}vh`
+        $robotHand.style.height = `${robot.hand.length + (contestArr.length / 2)}vh`
     }
 
     function renderCards(card, display) {
@@ -312,5 +304,18 @@
 
     // playEntireGame();
 
+    const toggleColorMode = e => {
+        if (e.currentTarget.classList.contains('light--hidden')) {
+            document.documentElement.setAttribute('color-mode', 'light');
+            localStorage.setItem('color-mode', 'light')
+            return;
+        } 
+            document.documentElement.setAttribute('color-mode', 'dark');
+            localStorage.setItem('color-mode', 'dark');
+    };
 
+    const toggleColorButtons = document.querySelectorAll('.color-mode-btn');
+    toggleColorButtons.forEach(btn => {
+        btn.addEventListener('click', toggleColorMode);
+    })
 })(); 
