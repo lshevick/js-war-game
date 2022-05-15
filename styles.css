@@ -176,6 +176,12 @@ span.suit {
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
+@media (min-width: 450px) {
+    .contest-arena {
+        width: 40%;
+    }
+}
+
 
 .hand {
     left: 20px;
