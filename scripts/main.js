@@ -1,9 +1,5 @@
 (function () {
     'use strict';
-    // GOAL: make the game war with JS
-    // 1. Have constructor for Game, Player, Deck, and Card
-    // 2. Must attach methods with prototype chain
-    // 3. Must create basic ui
 
     const $playButton = document.querySelector('.play-game');
     const $refreshMessage = document.querySelector('.refresh');
@@ -21,13 +17,12 @@
     const contestArr = [];
 
 
-    // this is the card constructor
     function Card({ value, name, suit }) {
         this.value = value;
         this.name = name;
         this.suit = suit;
     }
-    //this is the deck constructor
+
     function Deck({ names, suits }) {
         this.names = names;
         this.suits = suits;
@@ -41,12 +36,12 @@
         return this.cards;
 
     }
-    // this is the player constructor
+
     function Player(name) {
         this.name = name;
         this.hand = [];
     }
-    // this is the game constructor
+
     function Game() {
         this.players = [];
         this.deck = [];
@@ -66,7 +61,6 @@
     };
     Game.prototype.shuffle = function (deck) {
         // take deck of cards and randomize their order.
-        // function to take two cards and swap places for 1000 turns
         let m = deck.length, i;
         while (m) {
             i = Math.floor(Math.random() * m--);
@@ -129,7 +123,7 @@
         console.log('WAR', robot.hand.length)
         // add three cards from each players hands to contestArr and compare the values of the current cards.
         if (playerOne.hand.length < 5 || robot.hand.length < 5) {
-            // debugger;
+            debugger;
             if (playerOne.hand.length > robot.hand.length) {
                 length = robot.hand.length - 1;
             } else if (playerOne.hand.length < robot.hand.length) {
@@ -145,8 +139,9 @@
             contestArr.push(robot.hand[0]);
             robot.hand.shift();
         }
+        renderCards(robot.hand[0], $robotDisplay);
+        renderCards(playerOne.hand[0], $playerDisplay);
         setTimeout(() => {
-            debugger;
             updateWarHand();
             compareWar(playerOne.hand[0], robot.hand[0]);
         }, 2000);
@@ -164,8 +159,6 @@
                 playerOne.hand.push(playerOne.hand[0]);
                 playerOne.hand.shift();
                 robot.hand.shift();
-                // updateHand(playerOne);
-                // updateHand(robot);
                 $arena.textContent = `You took all the cards!!! 🤩`;
             } else if (pValue < rValue) {
                 robot.hand.push.apply(robot.hand, contestArr);
@@ -173,8 +166,6 @@
                 robot.hand.push(playerOne.hand[0]);
                 playerOne.hand.shift();
                 robot.hand.shift();
-                // updateHand(playerOne);
-                // updateHand(robot);
                 $arena.textContent = '🤖 took your cards!!! 😵‍💫';
             } else {
                 debugger;
@@ -304,6 +295,7 @@
 
     // playEntireGame();
 
+    // DARK MODE/LIGHT MODE FUNCTIONALITY
     const toggleColorMode = e => {
         if (e.currentTarget.classList.contains('light--hidden')) {
             document.documentElement.setAttribute('color-mode', 'light');

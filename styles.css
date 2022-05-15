@@ -19,7 +19,7 @@
 }
 
 .color-mode-btn {
-    font-size: 2rem;
+    font-size: 1rem;
     position: absolute;
     right: 1rem;
     top: 1rem;
@@ -30,7 +30,7 @@
 }
 
 .color-mode-btn:hover {
-    border: 2px solid var(--tertiary);
+    border: 2px solid var(--tertiary)
 }
 
 html,
