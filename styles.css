@@ -208,6 +208,18 @@ span.suit {
     transition: all 0.3s ease-out;
 }
 
+.player-hand-number, .robot-hand-number {
+    margin-top: 0.5rem;
+    color: var(--tertiary);
+    position: relative;
+    left: 0.1rem;
+}
+
+.hand-container {
+    display: flex;
+    flex-direction: column;
+}
+
 
 /* CSS for play button */
 

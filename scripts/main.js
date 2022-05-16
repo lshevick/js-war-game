@@ -10,9 +10,11 @@
     const $robotHand = document.querySelector('.robot-hand-amount');
     const $playerDisplay = document.querySelector('.player-card');
     const $robotDisplay = document.querySelector('.robot-card');
+    const $playerHandNumber = document.querySelector('.player-hand-number');
+    const $robotHandNumber = document.querySelector('.robot-hand-number');
 
 
-    const cardNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    const cardNames = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     const cardSuits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
     const contestArr = [];
 
@@ -220,8 +222,10 @@
     }
 
     function updateHand() {
-            $playerHand.style.height = `${playerOne.hand.length}vh`
-            $robotHand.style.height = `${robot.hand.length}vh`
+            $playerHand.style.height = `${playerOne.hand.length}vh`;
+            $robotHand.style.height = `${robot.hand.length}vh`;
+            $robotHandNumber.innerHTML = ` ${robot.hand.length}`;
+            $playerHandNumber.innerHTML = ` ${playerOne.hand.length}`;
         }
 
     function updateWarHand() {
