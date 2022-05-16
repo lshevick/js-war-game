@@ -125,7 +125,6 @@
         console.log('WAR', robot.hand.length)
         // add three cards from each players hands to contestArr and compare the values of the current cards.
         if (playerOne.hand.length < 5 || robot.hand.length < 5) {
-            debugger;
             if (playerOne.hand.length > robot.hand.length) {
                 length = robot.hand.length - 1;
             } else if (playerOne.hand.length < robot.hand.length) {
@@ -141,10 +140,10 @@
             contestArr.push(robot.hand[0]);
             robot.hand.shift();
         }
+        updateWarHand();
         renderCards(robot.hand[0], $robotDisplay);
         renderCards(playerOne.hand[0], $playerDisplay);
         setTimeout(() => {
-            updateWarHand();
             compareWar(playerOne.hand[0], robot.hand[0]);
         }, 2000);
     }
@@ -171,6 +170,8 @@
                 $arena.textContent = '🤖 took your cards!!! 😵‍💫';
             } else {
                 debugger;
+                contestArr.push(playerOne.hand[0]);
+                contestArr.push(robot.hand[0]);
                 war();
             }
             contestArr.length = 0;
@@ -222,13 +223,15 @@
     }
 
     function updateHand() {
-            $playerHand.style.height = `${playerOne.hand.length}vh`;
-            $robotHand.style.height = `${robot.hand.length}vh`;
-            $robotHandNumber.innerHTML = ` ${robot.hand.length}`;
-            $playerHandNumber.innerHTML = ` ${playerOne.hand.length}`;
-        }
+        $playerHand.style.height = `${playerOne.hand.length}vh`;
+        $robotHand.style.height = `${robot.hand.length}vh`;
+        $robotHandNumber.innerHTML = ` ${robot.hand.length}`;
+        $playerHandNumber.innerHTML = ` ${playerOne.hand.length}`;
+    }
 
     function updateWarHand() {
+        $robotHandNumber.innerHTML = ` ${robot.hand.length}`;
+        $playerHandNumber.innerHTML = ` ${playerOne.hand.length}`;
         $playerHand.style.height = `${playerOne.hand.length + (contestArr.length / 2)}vh`
         $robotHand.style.height = `${robot.hand.length + (contestArr.length / 2)}vh`
     }
@@ -263,7 +266,6 @@
     function checkIfOut() {
         //checks if either player is out of cards & determine winner
         if (playerOne.hand.length <= 1) {
-            // debugger;
             updateHand(playerOne);
             updateHand(robot);
             $robotAmount.innerHTML = 'HAHA TAKE THAT 🤖'
@@ -272,7 +274,6 @@
             $refreshMessage.style.visibility = 'visible';
             return true;
         } else if (robot.hand.length <= 1) {
-            // debugger;
             updateHand(playerOne);
             updateHand(robot);
             $playerAmount.innerHTML = 'YOU WIN 🥳'
@@ -288,8 +289,6 @@
 
     function playEntireGame() {
         while (playerOne.hand.length > 5 || robot.hand.length > 5) {
-            console.log(playerOne.hand.length);
-            console.log(robot.hand.length);
             compare(playerOne.hand[0], robot.hand[0]);
             if (checkIfOut()) break;
         }
@@ -305,9 +304,9 @@
             document.documentElement.setAttribute('color-mode', 'light');
             localStorage.setItem('color-mode', 'light')
             return;
-        } 
-            document.documentElement.setAttribute('color-mode', 'dark');
-            localStorage.setItem('color-mode', 'dark');
+        }
+        document.documentElement.setAttribute('color-mode', 'dark');
+        localStorage.setItem('color-mode', 'dark');
     };
 
     const toggleColorButtons = document.querySelectorAll('.color-mode-btn');
